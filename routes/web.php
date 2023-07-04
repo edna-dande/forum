@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/threads', 'ThreadsController@index'); {
-    $threads = Thread::latest()->get();
-    return view('threads.index', compact('threads'));
-}
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/threads', 'ThreadsController@index');
+Route::get('/threads/{id}', 'ThreadsController@show');
