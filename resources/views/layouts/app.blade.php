@@ -38,6 +38,10 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/threads">All Threads</a></li>
 
+                        <li>
+                            <a href="/threads/create">New Thread</a>
+                        </li>
+
                         <li class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Channels <span class="caret"></span>
@@ -46,12 +50,9 @@
                                 @foreach(App\Channel::all() as $channel)
                                     <li><a href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
                                 @endforeach
-{{--                                <li><a href="#">Action</a></li>--}}
-{{--                                <li><a href="#">Another action</a></li>--}}
-{{--                                <li role="separator" class="divider"></li>--}}
-{{--                                <li><a href="#">Something else here</a></li>--}}
                             </ul>
                         </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
