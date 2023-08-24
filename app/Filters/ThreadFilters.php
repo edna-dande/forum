@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\Types\String_;
 class ThreadFilters extends Filters
 {
 
-        protected $filters = ['by'];
+        protected $filters = ['by', 'popular'];
     /**
      * Filter the query by a given username.
      *
@@ -22,5 +22,22 @@ class ThreadFilters extends Filters
 
         return $this->builder->where('user_id', $user->id);
     }
+
+    /**
+     *Filter the query according to most popular.
+     *
+     * @return $this
+     */
+    protected function popular()
+    {
+        $this->builder->getQuery()->orders = [];
+        return $this->builder->orderBy('replies_count', 'desc');
+    }
+
+//    protected function popular()
+//    {
+//        return $this->builder->orderBy('replies_count', 'desc');
+//    }
+
 }
 
