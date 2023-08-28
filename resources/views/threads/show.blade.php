@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-{{--               <?php $replies = $thread->replies()->paginate(1); ?>--}}
+               <?php $replies = $thread->replies()->paginate(1); ?>
                 @foreach($replies as $reply)
                     @include('threads.reply')
                 @endforeach
