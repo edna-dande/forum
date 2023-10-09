@@ -22,10 +22,6 @@ class Thread extends Model
         static::deleting(function ($thread) {
            $thread->replies()->delete();
         });
-//
-//        static::addGlobalScope('creator', function ($builder) {
-//            $builder->withCount('creator');
-//        });
 
     }
 

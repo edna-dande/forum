@@ -11,12 +11,14 @@
                             {{$thread->title}}
                             </span>
 
+                            @can ('update', $thread)
                             <form action="{{ $thread->path() }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
                                 <button type="submit" class="btn btn-link">Delete Thread</button>
                             </form>
+                            @endcan
                         </div>
                     </div>
 
@@ -25,7 +27,6 @@
                     </div>
                 </div>
 
-               <?php $replies = $thread->replies()->paginate(10); ?>
                 @foreach($replies as $reply)
                     @include('threads.reply')
                 @endforeach
