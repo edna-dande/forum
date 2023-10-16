@@ -9,8 +9,10 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
+    import('bootstrap-sass').then(() => {
+        // Rest of your code
+    });
 
-    require('bootstrap-sass');
 } catch (e) {}
 
 /**
@@ -53,3 +55,9 @@ if (token) {
 //     cluster: 'mt1',
 //     encrypted: true
 // });
+
+window.events = new Vue();
+
+window.flash = function (message) {
+window.events.$emit('flash', message);
+};
