@@ -26,7 +26,7 @@
             <button class="btn btn-xs btn-link" @click="editing = false">Cancel</button>
         </div>
         <div v-else v-text="body">
-{{--            {{ $reply->body }}--}}
+            {{ $reply->body }}
         </div>
     </div>
 
