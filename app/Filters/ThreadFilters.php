@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\Types\String_;
 class ThreadFilters extends Filters
 {
 
-        protected $filters = ['by', 'popular'];
+        protected $filters = ['by', 'popular', 'unanswered'];
     /**
      * Filter the query by a given username.
      *
@@ -38,6 +38,9 @@ class ThreadFilters extends Filters
 //    {
 //        return $this->builder->orderBy('replies_count', 'desc');
 //    }
-
+    protected function unanswered()
+    {
+        return $this->builder->where('replies_count', 0);
+    }
 }
 

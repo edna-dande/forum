@@ -33,8 +33,11 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->post($thread->path(). '/replies', $reply->toArray());
 
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+//        $this->get($thread->path())
+//            ->assertSee($reply->body);
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
+        $this->assertEquals(1, $thread->fresh()->replies_count);
+
     }
     function test_a_reply_requires_a_body()
     {
@@ -70,6 +73,7 @@ class ParticipateInThreadsTest extends TestCase
         $this->delete("/replies/{$reply->id}")->assertStatus(302);
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+        $this->assertEquals(0, $reply->thread->fresh()->replies_count);
     }
 
     function test_authorized_users_can_update_replies()
