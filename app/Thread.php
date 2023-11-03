@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod;
 
@@ -58,8 +59,20 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
 
-//        $this->increment('replies_count');
-//        return $reply;
+        $this->subscriptions
+            ->filter(function ($sub) use ($reply) {
+            return $sub->user_id != $reply->user_id;
+        })
+            ->each->notify($reply);
+
+
+//        foreach ($this->subscriptions as $subscription) {
+//            if ($subscription->user_id != $reply->user_id) {
+//                $subscription->user->notify(new ThreadWasUpdated($this, $reply));
+//            }
+//        }
+
+        return $reply;
     }
     public function scopeFilter($query, $filters)
     {
@@ -71,6 +84,8 @@ class Thread extends Model
         $this->subscriptions()->create([
             'user_id' => $userId ?: auth()->id()
         ]);
+
+        return $this;
     }
 
     public function unsubscribe($userId = null)
